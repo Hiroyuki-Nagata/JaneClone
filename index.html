@@ -59,13 +59,19 @@
 <p>Linux</p>
 
 <p>Debian/Ubuntu</p>
-コマンドラインから、以下の行を /etc/apt/sources.list に加えてください。<br>
-<br>
+コマンドラインから、以下を実行し /etc/apt/sources.list にレポジトリの場所を追加してください。<br>
 <pre><code>
-$ echo "deb http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list 
-$ echo "deb-src http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list
+# echo "deb http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list 
+# echo "deb-src http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list
 </code></pre>
 
+apt-get コマンドにてjanecloneがインストール可能であることを確認してインストールしてください。<br>
+<pre><code>
+</code></pre>
+# apt-cache search janeclone
+janeclone - Cross Platform 2ch browser
+
+# apt-get install janeclone
 <p>Mac OS X</p>
 
 <h3>
