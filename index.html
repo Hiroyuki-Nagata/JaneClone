@@ -61,10 +61,9 @@
 <b>Linux</b><br>
 
 <b>Debian/Ubuntu</b><br>
-コマンドラインから、以下を実行し /etc/apt/sources.list にレポジトリの場所を追加してください。<br>
-<pre><code># echo "deb http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list 
-# echo "deb-src http://dl.bintray.com/hiroyuki-nagata/deb /" | sudo tee -a /etc/apt/sources.list
-</code></pre>
+コマンドラインから、以下を実行し /etc/apt/sources.list.d/fury.list を作成してください。<br>
+
+<pre><code># echo "deb [trusted=yes] https://apt.fury.io/hangingman/ /" > /etc/apt/sources.list.d/fury.list</code></pre>
 
 apt-get コマンドにてjanecloneがインストール可能であることを確認してインストールしてください。<br>
 <pre><code># apt-get update
@@ -100,9 +99,9 @@ janeclone - Cross Platform 2ch browser
 <h3>
 <a id="build" class="anchor" href="#build" aria-hidden="true"><span class="octicon octicon-link"></span></a>ビルド</h3>
 
-<pre><code>  $ ./bootstrap  
-  $ ./configure  
-  $ make  
+<pre><code>  $ ./bootstrap
+  $ ./configure
+  $ make
 </code></pre>
 
 <p>詳細はINSTALLファイルを見てください。</p>
