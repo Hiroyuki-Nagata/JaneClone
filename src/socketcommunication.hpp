@@ -22,53 +22,30 @@
 #ifndef SOCKETCOMMUNICATION_HPP_
 #define SOCKETCOMMUNICATION_HPP_
 
-#include <sstream>
 #include <iostream>
+#include <istream>
+#include <ostream>
+#include <string>
+#include <boost/asio.hpp>
+#include <boost/asio/ssl.hpp>
 
-#include <wx/wx.h>
-#include <wx/string.h>
-#include <wx/filefn.h>
-#include <wx/filename.h>
-#include <wx/textfile.h>
 #include <wx/protocol/http.h>
-#include <wx/protocol/protocol.h>
 #include <wx/wfstream.h>
 #include <wx/datstrm.h>
-#include <wx/regex.h>
-#include <wx/dir.h>
-#include <wx/utils.h>
-#include <wx/config.h>
-#include <wx/fileconf.h>
-#include <wx/sstream.h>
-#include <wx/sckstrm.h>
 #include <wx/uri.h>
-
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
-#include <curlpp/Infos.hpp>
 
 #include "enums.hpp"
 #include "janecloneutil.hpp"
 #include "janecloneuiutil.hpp"
 #include "sqliteaccessor.hpp"
 
-// curlppの名前空間が冗長なのでusingする
-using namespace curlpp::options;
-using namespace curlpp::types;
-
-using WFunctor = WriteFunctionFunctor;
-
+//using boost::asio::ip::tcp;
 
 class SocketCommunication {
 
     using Sock = SocketCommunication;
 
 public:
-
-    HeaderFunction* writeHeaderFunc;
-    WriteFunction* writeBodyFunc;
-
     /**
      * コンストラクタ
      */
@@ -177,10 +154,6 @@ private:
     };
 
     /**
-     * ヘッダファイル情報
-     */
-    std::string respBuf;
-    /**
      * HTTPの本文の情報
      */
     std::string bodyBuf;
@@ -264,9 +237,10 @@ private:
      */
     void RemoveTmpFile(const wxString& removeFile);
     /**
-     * HTTPヘッダを書きだす
+     * HTTPレスポンスヘッダーを読み取り、ローカルに書き出す
      */
-    size_t WriteHeader(char *ptr, size_t size, size_t nmemb);
+    void WriteHeaderLines(std::istream& responseStream, const wxString& headerPath);
+    void WriteHeader(std::string& line);
     /**
      * HTTPボディを書きだす
      */
@@ -318,9 +292,9 @@ private:
      */
     static wxString GetOutputFilePath(bool isShitaraba, wxString& boardNameAscii);
     /**
-     * コンフィグ情報をCurl++のオブジェクトに設定する
+     * コンフィグ情報をboost::asioに設定する
      */
-    void LoadConfiguration(curlpp::Easy& request, const bool io);
+    void LoadConfiguration(const bool io);
     /**
      * ユーザの設定しているユーザーエージェントを取得する
      */
